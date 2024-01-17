@@ -10,8 +10,10 @@ pipeline {
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
+         withMaven(maven: 'mvn') {
         // build the project and create a JAR file
-        sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn install package && mvn clean package'
+        sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app  && mvn clean package'
+        }
       }
     }
     stage('Static Code Analysis') {
