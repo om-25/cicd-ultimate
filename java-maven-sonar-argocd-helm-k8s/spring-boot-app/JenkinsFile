@@ -60,5 +60,26 @@ pipeline {
             }
         }
      }
+         
+        stage('Deploy to EC2') {
+            steps {
+                script {
+                    // Set your EC2 credentials
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        
+                        // Set the EC2 instance details
+                        def ec2Instance = 'your-ec2-instance-ip'
+                        def ec2KeyPair = 'your-key-pair'
+                        def ec2Username = 'ec2-user'
+
+                        // Copy the JAR/WAR file to the EC2 instance
+                        sh "scp -i ${ec2KeyPair}.pem target/your-app.jar ${ec2Username}@${ec2Instance}:/path/to/remote/directory/"
+
+                        // Connect to the EC2 instance and restart the application
+                        sh "ssh -i ${ec2KeyPair}.pem ${ec2Username}@${ec2Instance} 'sudo systemctl restart your-app'"
+                    }
+                }
+              }
+           }
   }
 }
