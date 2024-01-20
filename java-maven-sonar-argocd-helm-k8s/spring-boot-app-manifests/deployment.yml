@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: om25/ultimate-cicd:om25/ultimate-cicd:2
+        image: om25/ultimate-cicd:2
         ports:
         - containerPort: 9090
