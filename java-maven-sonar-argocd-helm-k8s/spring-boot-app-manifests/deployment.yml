@@ -18,4 +18,4 @@ spec:
       - name: spring-boot-app
         image: om25/ultimate-cicd:abhishekf5/ultimate-cicd:2
         ports:
-        - containerPort: 8080
+        - containerPort: 9090
